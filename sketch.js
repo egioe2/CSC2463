@@ -75,9 +75,7 @@ function draw() {
     vertex(348,185);
     vertex(320,210);
     vertex(327,242);
-
     vertex(300,220);
-
     vertex(273,242);
     vertex(280,210);
     vertex(252,185);
