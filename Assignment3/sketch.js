@@ -35,12 +35,12 @@ function draw()
   square(0,331,400);
 
   characters.forEach((character) => {
-    if (kb.pressing(RIGHT_ARROW) && character.sprite.x < 404)
+    if (kb.pressing(RIGHT_ARROW) && character.sprite.x < 401)
     {
       character.walkRight();
     }
 
-    else if (kb.pressing(LEFT_ARROW) && character.sprite.x > -3)
+    else if (kb.pressing(LEFT_ARROW) && character.sprite.x > 0)
     {
       character.walkLeft();
     }
