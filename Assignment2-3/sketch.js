@@ -24,7 +24,7 @@ function draw()
   } 
   else if(mouseIsPressed === false)
   {
-    background(100);
+    background(20,70,60);
     text('Click and hold mouse', 150, 150);
     noise.stop();
     filter.frequency.value = 1000;
