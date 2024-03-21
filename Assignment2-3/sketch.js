@@ -20,7 +20,7 @@ function draw()
   {
     background(cnv);
     noise.start();
-    filter.frequency.rampTo(0,2);
+    filter.frequency.rampTo(10,.1);
   } 
   else if(mouseIsPressed === false)
   {
