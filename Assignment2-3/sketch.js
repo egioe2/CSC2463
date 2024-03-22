@@ -11,7 +11,7 @@ function preload()
 
 function setup() 
 {
-  createCanvas(400, 400);
+  createCanvas(224, 264);
 }
 
 function mousePressed()
@@ -34,7 +34,7 @@ function draw()
   else if(mouseIsPressed === false)
   {
     background(100);
-    text('Click and hold mouse', 150, 150);
+    text('Click and hold mouse', 50, 50);
     filter.frequency.value = 500;
   }
 }
