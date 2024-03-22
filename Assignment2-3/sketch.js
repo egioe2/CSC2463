@@ -1,5 +1,5 @@
 let noise = new Tone.Noise("white");
-let filter = new Tone.Filter(10,"lowpass");
+let filter = new Tone.Filter(5,"lowpass");
 
 noise.connect(filter);
 filter.toDestination();
@@ -11,7 +11,17 @@ function preload()
 
 function setup() 
 {
-  createCanvas(600, 600);
+  createCanvas(400, 400);
+}
+
+function mousePressed()
+{
+  noise.start();
+}
+
+function mouseReleased()
+{
+  noise.stop();
 }
 
 function draw() 
@@ -19,14 +29,12 @@ function draw()
   if(mouseIsPressed === true)
   {
     background(cnv);
-    noise.start();
     filter.frequency.rampTo(10,.5);
   } 
   else if(mouseIsPressed === false)
   {
     background(100);
     text('Click and hold mouse', 150, 150);
-    noise.stop();
     filter.frequency.value = 500;
   }
 }
