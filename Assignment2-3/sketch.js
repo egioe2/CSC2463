@@ -17,11 +17,13 @@ function setup()
 function mousePressed()
 {
   noise.start();
+  filter.frequency.rampTo(10,.5);
 }
 
 function mouseReleased()
 {
   noise.stop();
+  filter.frequency.value = 500;
 }
 
 function draw() 
@@ -29,12 +31,10 @@ function draw()
   if(mouseIsPressed === true)
   {
     background(cnv);
-    filter.frequency.rampTo(10,.5);
   } 
   else if(mouseIsPressed === false)
   {
     background(100);
     text('Click and hold mouse', 50, 50);
-    filter.frequency.value = 500;
   }
 }
