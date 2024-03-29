@@ -20,6 +20,7 @@ function mousePressed()
 {
   noise.start();
   background(cnv);
+  filter.frequency.rampTo(10,.5);
 }
 
 function mouseReleased()
@@ -27,16 +28,5 @@ function mouseReleased()
   noise.stop();
   background(100);
   text('Click and hold mouse', 150, 150);
-}
-
-function draw() 
-{
-  if(mouseIsPressed === true)
-  {
-    filter.frequency.rampTo(10,.5);
-  } 
-  else if(mouseIsPressed === false)
-  {
-    filter.frequency.value = 500;
-  }
+  filter.frequency.value = 500;
 }

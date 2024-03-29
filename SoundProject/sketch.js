@@ -8,7 +8,7 @@ bgm.playbackRate = 1;
 
 function setup() 
 {
-
+  bgm.start();
 
   selectedColor = color('white');
   createCanvas(700, 700);
