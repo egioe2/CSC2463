@@ -2,14 +2,12 @@ let selectedColor;
 let palette;
 let x;
 let y; 
-let bgm = new Tone.Player("assets/BGM.mp3").toDestination();
-bgm.loop = true;
-bgm.playbackRate = 1;
+
+let player = new Tone.Player("assets/BGM.mp3").toDestination();
+player.loop = true;
 
 function setup() 
 {
-  bgm.start();
-
   selectedColor = color('white');
   createCanvas(700, 700);
 
