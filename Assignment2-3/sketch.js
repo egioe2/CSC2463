@@ -16,9 +16,8 @@ function draw() {
 }
 
    
-//Your assignment needs to use objects from Tone.js not preexisitng sound files!
-let noise = new Tone.Noise("white"); // pink, brown, or white
-let filter = new Tone.Filter (500, "lowpass"); // highpass, lowpass, bandpass. First argument is the frequency cutoff.
+let noise = new Tone.Noise("white");
+let filter = new Tone.Filter (500, "lowpass");
 
 noise.connect(filter);
 filter.toDestination();
