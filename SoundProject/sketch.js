@@ -1,78 +1,224 @@
-let selectedColor;
-let palette;
-let x;
-let y; 
+let sprite;
+let bugs = [];
+let score = 1;
+let timeRemaining = 30;
+let gameOver = false;
+let startScreen = true;
 
-let player = new Tone.Player("assets/BGM.mp3").toDestination();
-player.loop = true;
+let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
+bgm.loop = true;
+
+let splat = new Tone.Player("assets/splat.mp3").toDestination();
+let skitter = new Tone.Player("assets/skitter.mp3").toDestination();
+let whiff = new Tone.Player("assets/whiff.mp3").toDestination();
+
+//1 = up, 2 = down, 3 = right, 4 = left
+let directions = [1,2,3,4];
+
+function preload()
+{
+  angleMode(DEGREES);
+
+  let animations = 
+    {
+      squishedY: {row: 0, col:6, frames: 1},
+      walkY: {row: 0, frames: 6},
+
+      squishedX: {row: 1, col:6, frames: 1},
+      walkX: {row: 1, frames: 6}
+    };
+
+    for(let i=0; i < 10; i++)
+      {
+        bugs.push (new Bug(random(381),random(381),18,18,'assets/Bug.png',animations, random(directions),false,false));
+      }
+
+}
 
 function setup() 
 {
-  selectedColor = color('white');
-  createCanvas(700, 700);
+  createCanvas(400, 400);
+  bugs.forEach((bug) => {
+    
+    bug.startWalk();
 
-  palette = 
-  [
-    new Palette(0,0,color('red')),
-    new Palette(0,30,color('orange')),
-    new Palette(0,60,color('yellow')),
-    new Palette(0,90,color('lime')),
-    new Palette(0,120,color('cyan')),
-    new Palette(0,150,color('blue')),
-    new Palette(0,180,color('magenta')),
-    new Palette(0,210,color('brown')),
-    new Palette(0,240,color('white')),
-    new Palette(0,270,color('black'))];
+    for(let i=0; i<bugs.length; i++)
+    {
+      bug.sprite.overlaps(bugs[i].sprite)
+    }
+  })
+  bgm.start();
 }
 
-function draw()
+function draw() 
 {
-  for(let i = 0; i < palette.length; i++)
+  background(100, 200, 140);
+
+  if (gameOver)
   {
-    palette[i].draw();
+    gameEnd();
   }
-
-  strokeWeight(10);
-
-  if(mouseIsPressed && (mouseX > 35 || mouseY > 305))
+  
+  else
   {
-    stroke(selectedColor);
-    line(mouseX,mouseY,pmouseX,pmouseY);
+    playing();
   }
 }
 
 function mousePressed()
 {
-  for(let i = 0; i < palette.length; i++)
-  {
-    if(palette[i].contains(mouseX,mouseY))
+  bugs.forEach((bug) => {
+    if(bug.onBug === true)
     {
-      selectedColor = palette[i].fill;
+      bug.die();
     }
-  }
+    else
+    {
+      whiff.start();
+    }
+  })
 }
 
-class Palette
+function playing()
 {
-  constructor(x,y,fill)
+  textSize(10);
+  text("Bugs squished: " + (score-1),20,20);
+  text("Time remaining: " + ceil(timeRemaining),20,40);
+
+  timeRemaining -= deltaTime/1000;
+  if(timeRemaining < 0)
   {
-    this.x = x;
-    this.y = y;
-    this.fill = fill;
+    gameOver = true;
+    bgm.stop();
   }
 
-  draw()
+  bugs.forEach((bug) => {
+      bug.turn();
+
+      if(mouseX > bug.sprite.x - 9 && mouseX < bug.sprite.x + 9 && mouseY > bug.sprite.y - 9 && mouseY < bug.sprite.y + 9)
+      {
+        bug.onBug = true;
+      }
+
+      else
+      {
+        bug.onBug = false;
+      }
+  })
+}
+
+function gameEnd()
+{
+  textSize(15);
+  text("GAME OVER",140,125);
+  text("SCORE: " + (score-1),148,150);
+}
+
+class Bug 
+{
+  constructor(x,y,width,height,spriteSheet,animations,direction,isDead,onBug) 
   {
-    stroke(255);
-    strokeWeight(1);
-    fill(this.fill);
-    square(this.x, this.y, 30);
+    this.sprite = new Sprite(x,y,width,height);
+    this.sprite.spriteSheet = spriteSheet;
+    
+    this.sprite.anis.frameDelay = 8;
+    this.sprite.addAnis(animations);
+
+    this.direction = direction;
+    this.isDead = isDead;
+    this.onBug = onBug;
   }
 
-  contains(x,y)
+  die()
   {
-    let insideX = x >= this.x && x<= this.x + 30;
-    let insideY = y >= this.y && x<= this.y + 30;
-    return insideX && insideY;
+    if(this.isDead === false)
+    {
+      this.sprite.vel.x = 0;
+      this.sprite.vel.y = 0;
+  
+      if(this.direction === 1 || this.direction === 2)
+      {
+        this.sprite.changeAni('squishedY');
+      }
+    
+      else if(this.direction === 3 || this.direction === 4)
+      {
+        this.sprite.changeAni('squishedX');
+      }
+
+      score += 1;
+      this.isDead = true;
+      bgm.playbackRate += .008;
+      splat.start();
+    }
+  }
+
+  startWalk()
+  {
+    if(this.direction === 1 || this.direction === 2)
+    {
+      this.sprite.changeAni('walkY');
+    }
+
+    else if(this.direction === 3 || this.direction === 4)
+    {
+      this.sprite.changeAni('walkX');
+    }
+
+    if(this.direction === 1)
+    {
+      this.sprite.vel.y = -score*1.1;
+    }
+
+    else if(this.direction === 2)
+    {
+      this.sprite.scale.y = -1;
+      this.sprite.vel.y = score*1.1;
+    }
+
+    else if(this.direction === 3)
+    {
+      this.sprite.vel.x = score*1.1;
+    }
+
+    else if(this.direction === 4)
+    {
+      this.sprite.scale.x = -1;
+      this.sprite.vel.x = -score*1.1;
+    }
+  }
+
+  turn()
+  {
+    if(this.isDead === false)  
+    {
+        if(this.sprite.x > width - 5)
+      {
+        this.sprite.vel.x = -score*1.1;
+        this.sprite.scale.x = -1;
+        skitter.start();
+      }
+
+      else if(this.sprite.x < 5)
+      {
+        this.sprite.vel.x = score*1.1;
+        this.sprite.scale.x = 1;
+        skitter.start();
+      }
+
+      else if(this.sprite.y < 5)
+      {
+        this.sprite.vel.y = score*1.1;
+        this.sprite.scale.y = -1;
+        skitter.start();
+      }
+
+      else if(this.sprite.y > height - 5)
+      {
+        this.sprite.vel.y = -score*1.1;
+        this.sprite.scale.y = 1;
+        skitter.start();
+      }
+    }
   }
 }
