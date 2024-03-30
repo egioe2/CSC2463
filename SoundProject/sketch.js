@@ -196,28 +196,24 @@ class Bug
       {
         this.sprite.vel.x = -score*1.1;
         this.sprite.scale.x = -1;
-        skitter.start();
       }
 
       else if(this.sprite.x < 5)
       {
         this.sprite.vel.x = score*1.1;
         this.sprite.scale.x = 1;
-        skitter.start();
       }
 
       else if(this.sprite.y < 5)
       {
         this.sprite.vel.y = score*1.1;
         this.sprite.scale.y = -1;
-        skitter.start();
       }
 
       else if(this.sprite.y > height - 5)
       {
         this.sprite.vel.y = -score*1.1;
         this.sprite.scale.y = 1;
-        skitter.start();
       }
     }
   }
