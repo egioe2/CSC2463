@@ -3,6 +3,8 @@ let bugs = [];
 let score = 1;
 let timeRemaining = 30;
 let gameOver = false;
+let startScreen = true;
+let startButton;
 
 let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
 bgm.loop = true;
@@ -29,7 +31,7 @@ function preload()
 
     for(let i=0; i < 10; i++)
       {
-        bugs.push (new Bug(random(381),random(381),18,18,'assets/Bug.png',animations, random(directions),false,false));
+        bugs.push (new Bug(random(371),random(371),18,18,'assets/Bug.png',animations, random(directions),false,false));
       }
 
 }
@@ -37,30 +39,39 @@ function preload()
 function setup() 
 {
   createCanvas(400, 400);
-  bugs.forEach((bug) => {
-    
-    bug.startWalk();
 
+  startButton = createButton('Press to start');
+  startButton.position(35,400);
+  startButton.mousePressed(() =>startGame());
+
+  bugs.forEach((bug) => {
     for(let i=0; i<bugs.length; i++)
     {
       bug.sprite.overlaps(bugs[i].sprite)
     }
   })
-  bgm.start();
 }
 
 function draw() 
 {
-  background(100, 200, 140);
+  bugs.forEach((bug) => {
+    bug.turn();
 
-  if (gameOver)
+  })
+
+  background(100, 200, 140);
+  if(startScreen === false)
   {
-    gameEnd();
-  }
-  
-  else
-  {
-    playing();
+
+    if (gameOver)
+    {
+      gameEnd();
+    }
+    
+    else
+    {
+      playing();
+    }
   }
 }
 
@@ -78,6 +89,18 @@ function mousePressed()
   })
 }
 
+function startGame()
+{
+  if(startScreen === true)
+  {
+    startScreen = false;
+    bgm.start();
+    bugs.forEach((bug) => {
+      bug.startWalk();
+    })
+  }
+}
+
 function playing()
 {
   textSize(10);
@@ -92,8 +115,6 @@ function playing()
   }
 
   bugs.forEach((bug) => {
-      bug.turn();
-
       if(mouseX > bug.sprite.x - 9 && mouseX < bug.sprite.x + 9 && mouseY > bug.sprite.y - 9 && mouseY < bug.sprite.y + 9)
       {
         bug.onBug = true;
