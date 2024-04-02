@@ -31,7 +31,7 @@ function preload()
 
     for(let i=0; i < 10; i++)
       {
-        bugs.push (new Bug(random(371),random(371),18,18,'assets/Bug.png',animations, random(directions),false,false));
+        bugs.push (new Bug(random(351),random(351),18,18,'assets/Bug.png',animations, random(directions),false,false));
       }
 
 }
