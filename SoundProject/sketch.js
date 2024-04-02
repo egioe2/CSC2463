@@ -54,15 +54,13 @@ function setup()
 
 function draw() 
 {
-  bugs.forEach((bug) => {
-    bug.turn();
-
-  })
-
   background(100, 200, 140);
   if(startScreen === false)
   {
-
+    bugs.forEach((bug) => {
+      bug.turn();
+    })
+    
     if (gameOver)
     {
       gameEnd();
