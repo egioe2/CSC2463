@@ -7,6 +7,7 @@ let startScreen = true;
 let startButton;
 
 let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
+bgm.playbackRate = 1;
 
 let splat = new Tone.Player("assets/splat.mp3").toDestination();
 let skitter = new Tone.Player("assets/skitter.mp3").toDestination();
