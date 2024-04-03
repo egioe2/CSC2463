@@ -89,13 +89,13 @@ function mousePressed()
 
 function startGame()
 {
-  bgm.start();
   if(startScreen === true)
   {
     bugs.forEach((bug) => {
       bug.startWalk();
     })
     startScreen = false;
+    bgm.start();
   }
 }
 
