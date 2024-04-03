@@ -46,7 +46,7 @@ function setup()
   startButton.mousePressed(() => {
     if(startScreen === true)
     {
-      splat.loop = true;
+      splat.loop = true,
       splat.start(),
       bugs.forEach((bug) => {
         bug.startWalk();
