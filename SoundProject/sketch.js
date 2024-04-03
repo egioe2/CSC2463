@@ -61,7 +61,7 @@ function draw()
       bug.turn();
     })
 
-    if (gameOver)
+    if (gameOver === true)
     {
       gameEnd();
     }
@@ -108,7 +108,7 @@ function playing()
   timeRemaining -= deltaTime/1000;
   if(timeRemaining < 0)
   {
-    bgm.stop();
+    bgm.loop = false;
     gameOver = true;
   }
 
