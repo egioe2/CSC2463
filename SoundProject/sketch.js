@@ -94,8 +94,8 @@ function startGame()
       bug.startWalk();
     })
     bgm.start();
-    bgm.loop = true;
     startScreen = false;
+    bgm.loop = true;
   }
 }
 
