@@ -43,13 +43,11 @@ function setup()
 
   startButton = createButton('Press to start');
   startButton.position(35,400);
-  button = createButton('a');
-  button.position(55, 400);
-  button.mousePressed(() => bgm.start());
   startButton.mousePressed(() => {
     if(startScreen === true)
     {
-      bgm.start(),
+      splat.loop = true;
+      splat.start(),
       bugs.forEach((bug) => {
         bug.startWalk();
       }),
@@ -109,7 +107,7 @@ function playing()
   timeRemaining -= deltaTime/1000;
   if(timeRemaining < 0)
   {
-    // bgm.loop = false;
+    bgm.loop = false;
     gameOver = true;
   }
 
