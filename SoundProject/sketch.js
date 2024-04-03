@@ -6,7 +6,7 @@ let gameOver = false;
 let startScreen = true;
 let startButton;
 
-let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
+let bgm = new Tone.Player("assets/BGM.mp3").toDestination();
 bgm.playbackRate = 1;
 
 let splat = new Tone.Player("assets/splat.mp3").toDestination();
