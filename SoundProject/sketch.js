@@ -95,7 +95,6 @@ function startGame()
     })
     bgm.start();
     startScreen = false;
-    bgm.loop = true;
   }
 }
 
