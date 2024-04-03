@@ -93,7 +93,7 @@ function startGame()
     bugs.forEach((bug) => {
       bug.startWalk();
     })
-    bgm.start();
+    // bgm.start();
     startScreen = false;
   }
 }
