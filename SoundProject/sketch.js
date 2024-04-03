@@ -43,7 +43,16 @@ function setup()
 
   startButton = createButton('Press to start');
   startButton.position(35,400);
-  startButton.mousePressed(() =>startGame());
+  startButton.mousePressed(() => {
+    if(startScreen === true)
+    {
+      bugs.forEach((bug) => {
+        bug.startWalk();
+      })
+      bgm.start();
+      startScreen = false;
+    }
+  });
 
   bugs.forEach((bug) => {
     for(let i=0; i<bugs.length; i++)
@@ -86,18 +95,6 @@ function mousePressed()
       whiff.start();
     }
   })
-}
-
-function startGame()
-{
-  if(startScreen === true)
-  {
-    bugs.forEach((bug) => {
-      bug.startWalk();
-    })
-    bgm.start();
-    startScreen = false;
-  }
 }
 
 function playing()
