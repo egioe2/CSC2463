@@ -46,10 +46,10 @@ function setup()
   startButton.mousePressed(() => {
     if(startScreen === true)
     {
+      bgm.start();
       bugs.forEach((bug) => {
         bug.startWalk();
       })
-      bgm.start();
       startScreen = false;
     }
   });
