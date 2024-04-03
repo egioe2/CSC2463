@@ -7,7 +7,6 @@ let startScreen = true;
 let startButton;
 
 let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
-bgm.loop = true;
 
 let splat = new Tone.Player("assets/splat.mp3").toDestination();
 let skitter = new Tone.Player("assets/skitter.mp3").toDestination();
@@ -95,6 +94,7 @@ function startGame()
       bug.startWalk();
     })
     bgm.start();
+    bgm.loop = true;
     startScreen = false;
   }
 }
