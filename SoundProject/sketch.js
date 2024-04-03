@@ -43,7 +43,7 @@ function setup()
 
   startButton = createButton('Press to start');
   startButton.position(35,400);
-  button = createButton();
+  button = createButton('a');
   button.mousePressed(() => bgm.start());
   startButton.mousePressed(() => {
     if(startScreen === true)
