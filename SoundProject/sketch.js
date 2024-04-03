@@ -7,7 +7,6 @@ let startScreen = true;
 let startButton;
 
 let bgm = new Tone.Player("assets/bgm.mp3").toDestination();
-bgm.loop = true;
 bgm.playbackRate = 1;
 
 let splat = new Tone.Player("assets/splat.mp3").toDestination();
@@ -46,8 +45,8 @@ function setup()
   startButton.mousePressed(() => {
     if(startScreen === true)
     {
-      splat.loop = true,
-      splat.start(),
+      bgm.loop = true,
+      bgm.start(),
       bugs.forEach((bug) => {
         bug.startWalk();
       }),
