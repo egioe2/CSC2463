@@ -106,7 +106,7 @@ function playing()
   timeRemaining -= deltaTime/1000;
   if(timeRemaining < 0)
   {
-    bgm.loop = false;
+    // bgm.loop = false;
     gameOver = true;
   }
 
