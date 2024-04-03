@@ -108,8 +108,8 @@ function playing()
   timeRemaining -= deltaTime/1000;
   if(timeRemaining < 0)
   {
-    gameOver = true;
     bgm.stop();
+    gameOver = true;
   }
 
   bugs.forEach((bug) => {
