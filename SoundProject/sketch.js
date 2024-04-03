@@ -94,8 +94,8 @@ function startGame()
     bugs.forEach((bug) => {
       bug.startWalk();
     })
-    startScreen = false;
     bgm.start();
+    startScreen = false;
   }
 }
 
