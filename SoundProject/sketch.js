@@ -60,7 +60,7 @@ function draw()
     bugs.forEach((bug) => {
       bug.turn();
     })
-    
+
     if (gameOver)
     {
       gameEnd();
@@ -91,11 +91,11 @@ function startGame()
 {
   if(startScreen === true)
   {
-    startScreen = false;
     bgm.start();
     bugs.forEach((bug) => {
       bug.startWalk();
     })
+    startScreen = false;
   }
 }
 
