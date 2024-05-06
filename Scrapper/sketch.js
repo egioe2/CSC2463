@@ -7,7 +7,7 @@ let score = .1;
 let direction = 2;
 let elapsedTime = 0;
 let scrapLevel = 1;
-let scrap = 190;
+let scrap = 100;
 let rob;
 let addRob = false;
 let currRob = 0;
