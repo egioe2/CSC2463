@@ -2,7 +2,7 @@ let synth = new Tone.PolySynth(Tone.DuoSynth);
 let bend = new Tone.PitchShift();
 let delAmt = new Tone.FeedbackDelay("8n", 0.5);
 
-bend.pitch = 0;
+bend.pitch = 4;
 synth.connect(bend);
 bend.connect(delAmt);
 delAmt.toDestination();
